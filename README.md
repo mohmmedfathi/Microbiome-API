@@ -457,7 +457,8 @@ sample output :
 
 ### disease_info app endpoints
   
-
+  <details><summary><b>endpoints of disease</b></summary>
+  
 #### 1 - list all disease_info data 
 ```
     GET /disease_info/list/
@@ -729,6 +730,8 @@ sample output :
     }
 }
 ```
+ </details>
+
   
   
   
