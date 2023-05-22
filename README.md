@@ -18,10 +18,16 @@
   
   **1 - :unlock: Collect dataset from [HMP Kaggle](https://www.kaggle.com/datasets/bbhatt001/human-microbiome-project) <br>
 2 - :wrench: Re-format the data dividing it into collections that make it more compatible to MongoDB structure** <br>
-* human collection + project collection :
+* ⚠️ [HMP](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/data.csv)  = human collection + project collection <br>
+*  [python script](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/divide%20dataset.py) <br>
 ![Screenshot from 2023-05-17 20-49-11](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/9d627520-82a6-42ff-b5d5-6cc29a0ce602)
 
-* disease collection:
+<hr>
+
+* ⚠️ [Disease](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/disease.csv) <br>
+
+*  [python script](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/disease_csv.py) <br>
+ 
 [disease collection prepation](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/e3a1c9aa-84f2-4c95-9e56-073ac8593882)
 
 
