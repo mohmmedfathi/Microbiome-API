@@ -1,11 +1,11 @@
-# microbiome API
+# microbiome API :atom:
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![MIT License][license-shield]][license-url]
 
 <div>
 
-<h3 align="center"> Human microbiome API</h3>
+<h3 align="center"> Human microbiome API :microbe: :dna:</h3>
 
   <p align="center">
       
@@ -16,16 +16,28 @@
 ## About The Project
   API is implemented with django and mongodb to make various operations on Human Microbiome Dataset. </br>
   
+  **1 - :unlock: Collect dataset from [HMP Kaggle](https://www.kaggle.com/datasets/bbhatt001/human-microbiome-project) <br>
+2 - :wrench: Re-format the data dividing it into collections that make it more compatible to MongoDB structure** <br>
+* human collection + project collection :
+![Screenshot from 2023-05-17 20-49-11](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/9d627520-82a6-42ff-b5d5-6cc29a0ce602)
+
+* disease collection:
+[disease collection prepation](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/e3a1c9aa-84f2-4c95-9e56-073ac8593882)
+
+
+3 - **:hammer_and_pick: make all the queries that satisfy all the important information about this dataset <br>
+4 - :balance_scale: use django to handle frontend requests <br>**
+
   **Project Goals :** </br>
-  * **Data Accessibility** : provide a standardized and easily accessible interface for researchers, scientists, and other stakeholders to interact with the Human Microbiome Data. They can access the data remotely, integrate it into their own workflows,without needing to understand the underlying data storage or processing mechanisms.
-  * **Advanced Querying and Analysis** : Researchers can perform complex queries to extract specific subsets of data based on various criteria, such as body sites, sequencing methods, or disease statuses using one API endpoint.
-  * **Documentation and Standardization** : provide comprehensive documentation and standardization for the Human Microbiome Data. includes describing the data structure,explaining the API endpoints and usage.
+  * :pill: **Data Accessibility** : provide a standardized and easily accessible interface for researchers, scientists, and other stakeholders to interact with the Human Microbiome Data. They can access the data remotely, integrate it into their own workflows,without needing to understand the underlying data storage or processing mechanisms. 
+  * :stethoscope: **Advanced Querying and Analysis** : Researchers can perform complex queries to extract specific subsets of data based on various criteria, such as body sites, sequencing methods, or disease statuses using one API endpoint.
+  * :telescope: **Documentation and Standardization** : provide comprehensive documentation and standardization for the Human Microbiome Data. includes describing the data structure,explaining the API endpoints and usage.
   </br>
   
   **but why MongoDB not SQL(Postgres,MySQL,....) :** </br>
-  * **Scalability** : MongoDB is a NoSQL database that suitable for handling large volumes of data. The Human Microbiome Data dataset is extensive, involving samples from 18 different body sites and potentially thousands of individuals. 
-  * **Flexibility** : The Human Microbiome Data encompasses various data types, such as 16S bacterial marker gene sequencing, whole metagenome shotgun sequencing, and whole genome sequencing. With MongoDB, we can store and retrieve these diverse data types without the need for extensive schema modifications.
-  * **Querying and Aggregation** : MongoDB provides a powerful querying and aggregation framework, which is particularly advantageous when working with large datasets so we can perform complex queries and aggregations on the Human Microbiome Data to extract specific information or derive meaningful insights. 
+  * :hammer: **Scalability** : MongoDB is a NoSQL database that suitable for handling large volumes of data. The Human Microbiome Data dataset is extensive, involving samples from 18 different body sites and potentially thousands of individuals. 
+  * :hammer: **Flexibility** : The Human Microbiome Data encompasses various data types, such as 16S bacterial marker gene sequencing, whole metagenome shotgun sequencing, and whole genome sequencing. With MongoDB, we can store and retrieve these diverse data types without the need for extensive schema modifications.
+  * :hammer: **Querying and Aggregation** : MongoDB provides a powerful querying and aggregation framework, which is particularly advantageous when working with large datasets so we can perform complex queries and aggregations on the Human Microbiome Data to extract specific information or derive meaningful insights. 
     
 <br>
 
@@ -33,6 +45,7 @@
 ## Built With
 * [![Python][Python]][Python-url]
 * [![Django][Django]][Django-url]
+* ![MongoDB](https://img.shields.io/badge/mongo-db-green)
 * ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 
 ## Getting started
@@ -42,7 +55,7 @@
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/mohmmedfathi/micro_test && cd micro_test
+   git clone https://github.com/mohmmedfathi/Microbiome-API.git && cd Microbiome-API
    ```
 2. Create virtual environment
    ```sh
@@ -86,10 +99,13 @@
 |   ├── urls.py
 |   ├── views.py
 │   ├── pymongo.py
-
 ```
 
 ### A brief description project:
+
+![autodraw 5_22_2023](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/e7d289fc-063f-4b64-b339-0931acbe5515)
+
+<br>
 the project is consist of 3 apps (each one of them represent collection in MongoDB) :
 * human_info <make endpoint as link>
 json attribute : 
@@ -105,11 +121,23 @@ json attribute :
 
 ### human_info app endpoints
 
-  **endpoints of human**
+<details><summary><b>endpoints of human</b></summary>
+  kds
+ </details>
   
 ### project_info app endpoints
   
-#### 1 - list all project_info data 
+  <details><summary><b>endpoints of project</b></summary>
+    
+  ### 1 - list all project_info data 
+    
+  #### **:warning: :x: :yawning_face: without redis**
+    
+  ![Screenshot from 2023-05-22 22-57-13](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/f2bd1fe3-8831-4f99-91b6-591ab976e049)
+  #### **:heavy_check_mark: :trident: with redis**
+  
+![Screenshot from 2023-05-22 22-58-13](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/48dd3d0d-3176-43b9-8e5a-c435194677de)
+
 ```
     GET /project_info/list/
 ```
@@ -424,6 +452,9 @@ sample output :
     }
 }
 ```
+    
+ </details>
+
 ### disease_info app endpoints
   
 
