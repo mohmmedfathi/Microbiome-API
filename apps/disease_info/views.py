@@ -159,3 +159,4 @@ def show_indexs(request):
         return JsonResponse(indexes)
     else:
         return HttpResponseBadRequest('Only GET requests are allowed')
+

@@ -7,6 +7,7 @@ from django.http import HttpResponseBadRequest
 from pymongo.errors import BulkWriteError
 from .pymongo_2 import db
 from bson.code import Code
+from django.core.cache import cache
 
 @csrf_exempt
 def list_human_info(request):
@@ -195,30 +196,42 @@ def show_indexs(request):
     else:
         return HttpResponseBadRequest('Only GET requests are allowed')
 
-@csrf_exempt
 def map_reduce(request):
-    # Define the map function
-    map_function = Code("""
-        function() {
-            emit({ body_site: this.HMP_Isolation_Body_Site, organism: this.Organism_Name }, 1);
-        }
-    """)
+    if request.method == 'GET':
+        # Check if the result is already cached
+        cached_result = cache.get('map_reduce_result')
+        if cached_result is not None:
+            return HttpResponse(cached_result, content_type='application/json')
 
-    # Define the reduce function
-    reduce_function = Code("""
-        function(key, values) {
-            return Array.sum(values);
-        }
-    """)
+        # Define the map function
+        map_function = Code("""
+            function() {
+                emit({ body_site: this.HMP_Isolation_Body_Site, organism: this.Organism_Name }, 1);
+            }
+        """)
 
-    # Define the output collection
-    out_collection = "my_results"
+        # Define the reduce function
+        reduce_function = Code("""
+            function(key, values) {
+                return Array.sum(values);
+            }
+        """)
 
-    # Run the MapReduce operation using the command() method
-    result = db.command('mapReduce', collection.name, map=map_function, reduce=reduce_function, out=out_collection)
-    lst = []
-    # Print the results
-    for doc in db[out_collection].find():
-        lst.append(doc)
-    json_data = json_util.dumps(list(lst))
-    return HttpResponse(json_data, content_type='application/json')
+        # Define the output collection
+        out_collection = "my_results"
+
+        # Run the MapReduce operation using the command() method
+        result = db.command('mapReduce', collection.name, map=map_function, reduce=reduce_function, out=out_collection)
+        
+        lst = []
+        # Print the results
+        for doc in db[out_collection].find():
+            lst.append(doc)
+
+        json_data = json.dumps(lst)
+        cache.set('map_reduce_result', json_data)
+
+        return HttpResponse(json_data, content_type='application/json')
+    
+    else:
+        return HttpResponseBadRequest("Only GET is allowed")

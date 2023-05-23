@@ -13,18 +13,18 @@ def list_project_info(request):
     """
     
     if request.method == 'GET':
-        # if redis_client.exists('project_info_cache'):
-        #     json_data = redis_client.get('project_info_cache')
-        #     print("returned from cache")
-        # else : 
+        if redis_client.exists('project_info_cache'):
+            json_data = redis_client.get('project_info_cache')
+            print("returned from cache")
+        else : 
             project_info_OBJECTS = collection.find()
 
             
             json_data = json_util.dumps(project_info_OBJECTS)
 
-            # redis_client.set('project_info_cache', json_data)
-            # print("setted!")
-            return HttpResponse(json_data, content_type='application/json')
+            redis_client.set('project_info_cache', json_data)
+            print("setted!")
+        return HttpResponse(json_data, content_type='application/json')
     else :
         return HttpResponse("GET Method only allowed in list")
     
