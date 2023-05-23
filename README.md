@@ -116,16 +116,21 @@
 
 <br>
 the project is consist of 3 apps (each one of them represent collection in MongoDB) :
-* human_info <make endpoint as link>
-json attribute : 
-  - json crack
-  - field explaination kaggle
+human_info attribute :
+<br>
 
-* project_info
-json attribute : 
+![carbon](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/0ca9544e-a702-4644-ba36-7fc9d7854519)
 
-* disease_info
-json attribute : 
+<br>
+
+* project_info attribute : 
+
+![carbon (1)](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/d7b80216-b0ba-44fe-abda-1a481899ca64)
+
+
+* disease_info attribute : 
+* 
+![carbon (2)](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/608f16a3-5627-4bb6-b6fd-84d547054b04)
 
 
 ### human_info app endpoints
