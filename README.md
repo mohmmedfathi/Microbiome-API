@@ -47,7 +47,9 @@
   * :hammer: **Scalability** : MongoDB is a NoSQL database that suitable for handling large volumes of data. The Human Microbiome Data dataset is extensive, involving samples from 18 different body sites and potentially thousands of individuals. 
   * :hammer: **Flexibility** : The Human Microbiome Data encompasses various data types, such as 16S bacterial marker gene sequencing, whole metagenome shotgun sequencing, and whole genome sequencing. With MongoDB, we can store and retrieve these diverse data types without the need for extensive schema modifications.
   * :hammer: **Querying and Aggregation** : MongoDB provides a powerful querying and aggregation framework, which is particularly advantageous when working with large datasets so we can perform complex queries and aggregations on the Human Microbiome Data to extract specific information or derive meaningful insights. 
-    
+    **⚠️ used redis to :
+    * 🔨 **Performance Improvement**: The Human Microbiome Data is a large dataset resulting from a collaborative effort involving hundreds of scientists and organizations. By caching the results of Django views with Redis ,significantly improved the performance of application.
+    * 🔨 **Reduced Database Load**: Caching the results of Django views with Redis helps reduce the load on the underlying database. Instead of querying the database for every request, we can serve cached results directly from Redis.
 <br>
 
 
