@@ -248,25 +248,24 @@ sample output :
 ``` 
   <hr>
   
-#### 6 - create MongoDB index 
+#### 5 - create MongoDB index 
   
-
  example : 
   
 ```
-    GET /human_info/create_index?field=MED.DISEASES.Cardiovascular.Colesterol.high&order=-1/
+    GET /human_info/create_index?field=HMP_ID&order=1
 ```
   
 sample output : 
-  
 ```
-  
+Index created on field "HMP_ID" with name "HMP_ID_1" 
+ current indexes = "{'_id_': {'v': 2, 'key': [('_id', 1)]}, 'HMP_ID_1': {'v': 2, 'key': [('HMP_ID', 1)]}}"
 ```
   
   <hr>
    
  
-#### 7 - show all indexes 
+#### 6 - show all indexes 
 ```
     GET /disease_info/show_indexes/
 ```
@@ -274,7 +273,26 @@ sample output :
 sample output : 
   
 ```json
-
+{
+    "_id_": {
+        "v": 2,
+        "key": [
+            [
+                "_id",
+                1
+            ]
+        ]
+    },
+    "HMP_ID_1": {
+        "v": 2,
+        "key": [
+            [
+                "HMP_ID",
+                1
+            ]
+        ]
+    }
+}
 ```
  </details>
   
@@ -846,8 +864,8 @@ sample output :
 sample output : 
   
 ```
-  Index created on field "_id" with name "_id_1" 
- current indexes = "{'_id_': {'v': 2, 'key': [('_id', 1)]}}"
+Index created on field "MED.DISEASES.Cardiovascular.Colesterol.high" with name "MED.DISEASES.Cardiovascular.Colesterol.high_-1" 
+ current indexes = "{'_id_': {'v': 2, 'key': [('_id', 1)]}, 'MED.DISEASES.Cardiovascular.Colesterol.high_-1': {'v': 2, 'key': [('MED.DISEASES.Cardiovascular.Colesterol.high', -1)]}}"
 ```
   
   <hr>
