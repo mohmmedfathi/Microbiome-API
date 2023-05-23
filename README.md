@@ -18,6 +18,9 @@
   
   **1 - :unlock: Collect dataset from [HMP Kaggle](https://www.kaggle.com/datasets/bbhatt001/human-microbiome-project) <br>
 2 - :wrench: Re-format the data dividing it into collections that make it more compatible to MongoDB structure** <br>
+
+![autodraw 5_22_2023](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/e7d289fc-063f-4b64-b339-0931acbe5515)
+
 * ⚠️ [HMP](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/data.csv)  = human collection + project collection <br>
 *  [python script](https://github.com/mohmmedfathi/Microbiome-API/blob/main/Datasets/divide%20dataset.py) <br>
 ![Screenshot from 2023-05-17 20-49-11](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/9d627520-82a6-42ff-b5d5-6cc29a0ce602)
@@ -109,7 +112,7 @@
 
 ### A brief description project:
 
-![autodraw 5_22_2023](https://github.com/mohmmedfathi/Microbiome-API/assets/64088888/e7d289fc-063f-4b64-b339-0931acbe5515)
+
 
 <br>
 the project is consist of 3 apps (each one of them represent collection in MongoDB) :
@@ -128,7 +131,151 @@ json attribute :
 ### human_info app endpoints
 
 <details><summary><b>endpoints of human</b></summary>
-  kds
+    
+#### 1 - list all disease_info data 
+```
+    GET /human_info/list/
+```
+sample output : 
+```json
+[
+    {
+        "_id": 15,
+        "HMP_ID": "23",
+        "GOLD_ID": "Gi02599",
+        "Organism_Name": "Acinetobacter sp. ATCC 27244",
+        "Domain": "BACTERIAL",
+        "NCBI_Superkingdom": "Bacteria Asd",
+        "HMP_Isolation_Body_Site": "skin"
+    },
+    {
+        "_id": 16,
+        "HMP_ID": "26",
+        "GOLD_ID": "Gi03419",
+        "Organism_Name": "Acinetobacter junii SH205",
+        "Domain": "BACTERIAL",
+        "NCBI_Superkingdom": "Bacteria",
+        "HMP_Isolation_Body_Site": "gastrointestinal_tract"
+    }
+  ]
+```
+  
+  <hr> 
+  
+#### 2 - show specific record 
+```bash
+    GET /human_info/human_id
+    
+```
+note : **human_id is Integer**
+sample output : 
+```json
+{
+    "_id": 16,
+    "HMP_ID": "26",
+    "GOLD_ID": "Gi03419",
+    "Organism_Name": "Acinetobacter junii SH205",
+    "Domain": "BACTERIAL",
+    "NCBI_Superkingdom": "Bacteria",
+    "HMP_Isolation_Body_Site": "gastrointestinal_tract"
+}
+```
+ 
+  <hr>
+  
+#### 3 - Create one disease_info 
+``` 
+POST /human_info/create_one/
+```
+sample input : 
+```json
+{
+"_id":99999,
+"HMP_ID":"26",
+"GOLD_ID":"GOPP",
+"Organism_Name":"Acinetobacter junii SH205",
+"Domain":"BACTERIAL",
+"NCBI_Superkingdom":"Bacteria",
+"HMP_Isolation_Body_Site":"gastrointestinal_tract"
+}
+```
+
+
+sample output : 
+```json
+{
+    "message": "human_info added",
+    "human_info_id": "99999"
+}
+```
+ 
+  <hr>
+  
+#### 4 - Create bulk human_info 
+``` 
+POST /human_info/create_many/
+```
+sample input : 
+```json
+[
+    {
+        "_id": 9955,
+        "HMP_ID": "26",
+        "GOLD_ID": "oppo",
+        "Organism_Name": "Acinetobacter junii SH205",
+        "Domain": "BACTERIAL",
+        "NCBI_Superkingdom": "Bacteria",
+        "HMP_Isolation_Body_Site": "gastrointestinal_tract"
+    },
+    {
+        "_id": 6655,
+        "HMP_ID": "26",
+        "GOLD_ID": "oppo",
+        "Organism_Name": "Acinetobacter junii SH205",
+        "Domain": "BACTERIAL",
+        "NCBI_Superkingdom": "Bacteria",
+        "HMP_Isolation_Body_Site": "gastrointestinal_tract"
+    }
+]
+```
+
+
+sample output : 
+```json
+{
+    "message": "2 documents inserted"
+}
+``` 
+  <hr>
+  
+#### 6 - create MongoDB index 
+  
+
+ example : 
+  
+```
+    GET /human_info/create_index?field=MED.DISEASES.Cardiovascular.Colesterol.high&order=-1/
+```
+  
+sample output : 
+  
+```
+  
+```
+  
+  <hr>
+   
+ 
+#### 7 - show all indexes 
+```
+    GET /disease_info/show_indexes/
+```
+  
+sample output : 
+  
+```json
+
+```
  </details>
   
 ### project_info app endpoints
@@ -416,14 +563,13 @@ sample output :
  example : 
   
 ```
-    POST /project_info/create_index?field=Gene Count&order=1
+    GET /human_info/create_index?field=HMP_ID&order=1
 ```
   
 sample output : 
-  
 ```
-Index created on field "Gene Count" with name "Gene Count_1" 
- current indexes = "{'_id_': {'v': 2, 'key': [('_id', 1)]}, 'Gene Count_1': {'v': 2, 'key': [('Gene Count', 1)]}}"
+Index created on field "HMP_ID" with name "HMP_ID_1" 
+ current indexes = "{'_id_': {'v': 2, 'key': [('_id', 1)]}, 'HMP_ID_1': {'v': 2, 'key': [('HMP_ID', 1)]}}"
 ```
   
   <hr>
@@ -447,11 +593,11 @@ sample output :
             ]
         ]
     },
-    "Gene Count_1": {
+    "HMP_ID_1": {
         "v": 2,
         "key": [
             [
-                "Gene Count",
+                "HMP_ID",
                 1
             ]
         ]
