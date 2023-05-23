@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import specific_human_info,create_one_human_info,list_human_info,create_many_human_info,aggregate_human_info,delete_many,create_index,show_indexs
+from .views import specific_human_info,create_one_human_info,list_human_info,create_many_human_info,aggregate_human_info,delete_many,create_index,show_indexs,map_reduce
 
 urlpatterns = [
     
@@ -23,5 +23,6 @@ urlpatterns = [
     path('create_index/',create_index),
     
     path('show_indexes/',show_indexs),
+    path('map_reduce/',map_reduce)
     
 ]

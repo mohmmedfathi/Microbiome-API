@@ -2,10 +2,11 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from bson import json_util
-from .pymongo import collection
+from .pymongo_2 import collection
 from django.http import HttpResponseBadRequest
 from pymongo.errors import BulkWriteError
-
+from .pymongo_2 import db
+from bson.code import Code
 
 @csrf_exempt
 def list_human_info(request):
@@ -64,14 +65,14 @@ def specific_human_info(request, human_id=None):
         DELETE  ->  Delete speicific human_info with (HMP ID)
     """
     if request.method == 'GET':
-
+        
         if human_id is not None:
-
-            human_info = collection.find_one({"HMP_ID": str(human_id)})
-
+            
+            human_info = collection.find_one({"HMP_ID":str(human_id)})
+            
             if human_info:
-
-                return JsonResponse(json.loads(json_util.dumps(human_info)), safe=False)
+                
+                return JsonResponse(json.loads(json_util.dumps(human_info)),safe=False)
             else:
                 return HttpResponseBadRequest('human_info with this id not found')
 
@@ -165,7 +166,7 @@ def delete_many(request):
 
 @csrf_exempt
 def create_index(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         field = request.GET.get('field')
         order = request.GET.get('order')
 
@@ -183,7 +184,7 @@ def create_index(request):
         return HttpResponse(f'Index created on field "{field}" with name "{result}" \n current indexes = "{indexes}"')
 
     else:
-        return HttpResponseBadRequest('Only POST requests are allowed')
+        return HttpResponseBadRequest('Only GET requests are allowed')
 
 
 @csrf_exempt
@@ -193,3 +194,31 @@ def show_indexs(request):
         return JsonResponse(indexes)
     else:
         return HttpResponseBadRequest('Only GET requests are allowed')
+
+@csrf_exempt
+def map_reduce(request):
+    # Define the map function
+    map_function = Code("""
+        function() {
+            emit({ body_site: this.HMP_Isolation_Body_Site, organism: this.Organism_Name }, 1);
+        }
+    """)
+
+    # Define the reduce function
+    reduce_function = Code("""
+        function(key, values) {
+            return Array.sum(values);
+        }
+    """)
+
+    # Define the output collection
+    out_collection = "my_results"
+
+    # Run the MapReduce operation using the command() method
+    result = db.command('mapReduce', collection.name, map=map_function, reduce=reduce_function, out=out_collection)
+    lst = []
+    # Print the results
+    for doc in db[out_collection].find():
+        lst.append(doc)
+    json_data = json_util.dumps(list(lst))
+    return HttpResponse(json_data, content_type='application/json')
