@@ -49,8 +49,8 @@
   * :hammer: **Querying and Aggregation** : MongoDB provides a powerful querying and aggregation framework, which is particularly advantageous when working with large datasets so we can perform complex queries and aggregations on the Human Microbiome Data to extract specific information or derive meaningful insights. 
   * 
     **⚠️ used redis to :** </br>
-    * 🔨 **Performance Improvement**: The Human Microbiome Data is a large dataset resulting from a collaborative effort involving hundreds of scientists and organizations. By caching the results of Django views with Redis ,significantly improved the performance of application.
-    * 🔨 **Reduced Database Load**: Caching the results of Django views with Redis helps reduce the load on the underlying database. Instead of querying the database for every request, we can serve cached results directly from Redis.
+    * 🔨 **Performance Improvement**: The Human Microbiome Data is a large dataset resulting from a collaborative effort involving thousands of Biological Informations. By caching the results of Django views with Redis ,significantly improved the performance of application.
+    * 🔨 **Reduced Database Load**: Caching the results of Django views with Redis helps reduce the load on the primary database. Instead of querying the database for every request, we can serve cached results directly from Redis.
 <br>
 
 
